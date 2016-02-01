@@ -25,6 +25,7 @@
           
           if (!thePost.hasOwnProperty('id')){
             document.querySelector('#page-wrapper').innerHTML = document.getElementById('errorPage').innerHTML;
+            return;
           }
           
           document.querySelector('#page-wrapper').innerHTML = document.getElementById('viewPost').innerHTML;
