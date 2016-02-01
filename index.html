@@ -3,6 +3,16 @@
   <head>
     <title>Sample "Blog"</title>
     <script>
+      var handleHash = function(){
+        var postId = location.hash.substring(1);
+        if (postId.length > 4){
+          specificPage(postId);
+        } else {
+          homePage();
+        }
+      };
+      window.addEventListener("hashchange", handleHash);
+      window.addEventListner("load", handleHash);
        var posts = [{title: "Bananas are great", author: "Salmon Nella", content: "Can't spell potassium without pot.", id:"post1"},
        {title: "Top 3 best colors", author: "Banana Man", content: "<ul><li>Salmon</li> <li>Lightsalmon</li> <li>Darksalmon</li></ul><p>The end.</p>", id:"post2"}];
        var loadAPost = function(id){
@@ -13,6 +23,10 @@
             }
           });
           
+          if (!thePost.hasOwnProperty('id')){
+            document.querySelector('#page-wrapper').innerHTML = document.getElementById('errorPage').innerHTML;
+          }
+          
           document.querySelector('#page-wrapper').innerHTML = document.getElementById('viewPost').innerHTML;
           document.querySelector('#title').innerHTML = thePost.title;
           document.querySelector('#author').innerHTML = thePost.author;
@@ -20,16 +34,25 @@
        };
        
        var postIndex = 0;
-       setInterval(function(){
-          loadAPost(posts[postIndex].id);
-          postIndex = (postIndex + 1) % posts.length;
-       }, 4000);
+       var homePage = function(){
+         setInterval(function(){
+            loadAPost(posts[postIndex].id);
+            postIndex = (postIndex + 1) % posts.length;
+         }, 4000);
+       };
+       
+       var specificPage = function(id){
+         loadAPost(id);
+       }
     </script>
   </head>
   <body>
     <div id="page-wrapper">
     </div>
   </body>
+  <template id="errorPage">
+    <a href="#home">No post, please head to our home page.</a>
+  </template>
   <template id="viewPost">
     <h1 id="title">Title here...</h1>
     <h2 id="author">Author here</h2>
