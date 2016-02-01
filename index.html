@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Sample "Blog"</title>
+    <script>
+       var posts = [{title: "Bananas are great", author: "Salmon Nella", content: "Can't spell potassium without pot.", id:"post1"},
+       {title: "Top 3 best colors", author: "Banana Man", content: "<ul><li>Salmon</li> <li>Lightsalmon</li> <li>Darksalmon</li></ul><p>The end.</p>", id:"post2"}];
+       var loadAPost = function(id){
+          var thePost = {};
+          posts.forEach(function(post){
+            if (post.id == id){
+              thePost = postl
+            }
+          });
+          
+          document.body.innerHTML = document.getElementById('viewPost').innerHTML;
+          document.querySelector('#title').innerHTML = post.title;
+          document.querySelector('#author').innerHTML = post.author;
+          document.querySelector('#text').innerHTML = post.content;
+       };
+       
+       var postIndex = 0;
+       setInterval(function(){
+          loadAPost(posts[postIndex].id);
+          postIndex = (postIndex + 1) % posts.length;
+       }, 4000);
+    </script>
+  </head>
+  <body>
+  </body>
+  <template id="viewPost">
+    <h1 id="title">Title here...</h1>
+    <h2 id="author">Author here</h2>
+    <article id="text">
+    </article>
+  </template>
+</html>
